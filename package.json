@@ -1,0 +1,13 @@
+{
+  "name": "siram-tanaman-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard web Sistem Penyiraman Tanaman Otomatis (ESP32 + Wokwi + MQTT)",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
