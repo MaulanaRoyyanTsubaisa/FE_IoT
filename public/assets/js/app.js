@@ -9,12 +9,12 @@
 
   // ---------- Konfigurasi ----------
   const CFG = Object.assign(
-    { apiBase: '', batasKering: 30, batasBasah: 60, batasSuhu: 35, batasManual: 30 },
+    { apiBase: '', batasKering: 30, batasBasah: 60, batasSuhu: 35, batasManual: 30, batasOffline: 25 },
     window.SIRAM_CONFIG || {},
   );
   const API = CFG.apiBase.replace(/\/+$/, '') + '/api';
-  const ONLINE_MS = 10_000;        // sama dengan backend: > 10 dtk tanpa data = offline
-  const CONFIRM_TIMEOUT = 12_000;  // batas tunggu konfirmasi ESP32 setelah perintah
+  const ONLINE_MS = CFG.batasOffline * 1000;   // > batasOffline dtk tanpa data = offline
+  const CONFIRM_TIMEOUT = 20_000;  // batas tunggu konfirmasi ESP32 setelah perintah (Wokwi bisa lambat)
   const PAGE_SIZE = 10;
 
   // ---------- State ----------

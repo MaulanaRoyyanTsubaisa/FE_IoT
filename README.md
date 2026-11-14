@@ -237,8 +237,8 @@ biarkan `docs.html` dan `openapi.json`). Dashboard tampil langsung di domain bac
 
 | Indikator | Arti |
 |---|---|
-| 🟢 ESP32 online | Ada data masuk dalam 10 detik terakhir |
-| 🔴 ESP32 offline | Tidak ada data lebih dari 10 detik (simulasi Wokwi berhenti) |
+| 🟢 ESP32 online | Ada data masuk dalam 25 detik terakhir |
+| 🔴 ESP32 offline | Tidak ada data lebih dari 25 detik (simulasi Wokwi berhenti / tersendat) |
 | 🟢 MQTT terhubung | Backend tersambung ke broker EMQX |
 | 🟢 Database OK | Backend tersambung ke PostgreSQL |
 | 🟢 Realtime (SSE) | Data didorong langsung dari server |
@@ -295,8 +295,19 @@ window.SIRAM_CONFIG = {
   batasBasah: 60,    // % : mulai nilai ini pompa mati (mode AUTO)
   batasSuhu: 35,     // °C: di atas ini buzzer berbunyi
   batasManual: 30,   // detik: lama mode MANUAL sebelum kembali ke AUTO
+  batasOffline: 25,  // detik tanpa data sebelum ESP32 dianggap offline
 };
 ```
+
+### Dashboard tetap "ESP32 offline" padahal Wokwi jalan?
+
+1. **Tab Wokwi jangan di-minimize atau ditinggal di belakang.** Browser memperlambat tab yang tidak aktif,
+   sehingga ESP32 mengirim data sangat jarang. Taruh Wokwi di jendela terpisah yang tetap terlihat.
+2. **Cek Serial Monitor Wokwi.** Harus ada `>> MQTT terhubung`. Kalau muncul `MQTT gagal ...` berulang,
+   ESP32 belum tersambung ke broker (cek internet / kredensial MQTT di sketch).
+3. **Cek kecepatan simulasi** (persentase di pojok Wokwi). Di laptop yang berat, simulasi bisa < 50%,
+   sehingga data datang tiap 5–8 detik. Tutup aplikasi lain yang berat.
+4. **Pastikan kode terbaru**: jalankan `git pull` lalu `npm start` ulang, dan refresh browser (Ctrl + F5).
 
 > Samakan nilai ambang dengan konstanta di `wokwi/sketch.ino` milik backend.
 

@@ -12,4 +12,8 @@ window.SIRAM_CONFIG = {
   batasBasah: 60,    // % : mulai nilai ini pompa mati (mode AUTO)
   batasSuhu: 35,     // °C: di atas ini buzzer berbunyi
   batasManual: 30,   // detik: lama mode MANUAL sebelum kembali ke AUTO
+
+  // detik tanpa data sebelum ESP32 dianggap offline.
+  // Wokwi sering berjalan lebih lambat dari waktu nyata (data tiap 4–8 dtk), jadi beri kelonggaran.
+  batasOffline: 25,
 };
